@@ -3,7 +3,7 @@ import * as Plugin from "./quartz/plugins"
 import path from "path"
 import { fileURLToPath } from "url"
 
-**
+/**
  * Quartz 4 Configuration
  *
  * See https://quartz.jzhao.xyz/configuration for more information.
