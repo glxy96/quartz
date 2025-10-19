@@ -3,7 +3,7 @@ import * as Plugin from "./quartz/plugins"
 import path from "path"
 import { fileURLToPath } from "url"
 
-/**
+**
  * Quartz 4 Configuration
  *
  * See https://quartz.jzhao.xyz/configuration for more information.
@@ -17,7 +17,7 @@ const config: QuartzConfig = {
     pageTitle: "glxy96.com",
     pageTitleSuffix: "",
     paths: {
-      content: path.resolve(__dirname, "content_snapshot"),
+      content: path.resolve(__dirname, "content"),
       resources: path.resolve(__dirname, "quartz/resources"),
     },
     enableSPA: true,
