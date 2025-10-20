@@ -15,7 +15,34 @@ const defaultHeaderWeight = [700]
 const defaultBodyWeight = [400]
 
 export async function getSatoriFonts(headerFont: FontSpecification, bodyFont: FontSpecification) {
-  // Get all weights for header and body fonts
+  // ローカルの日本語フォントを優先的に読み込む
+  const notoSansJPRegularPath = path.join(QUARTZ, "static", "NotoSansJP-Regular.otf")
+  const notoSansJPBoldPath = path.join(QUARTZ, "static", "NotoSansJP-Bold.otf")
+  
+  try {
+    const notoSansJPRegular = await fs.readFile(notoSansJPRegularPath)
+    const notoSansJPBold = await fs.readFile(notoSansJPBoldPath)
+    
+    // Noto Sans JPフォントを最優先で返す
+    return [
+      {
+        name: 'Noto Sans JP',
+        data: notoSansJPBold,
+        weight: 700 as FontWeight,
+        style: 'normal' as const,
+      },
+      {
+        name: 'Noto Sans JP',
+        data: notoSansJPRegular,
+        weight: 400 as FontWeight,
+        style: 'normal' as const,
+      },
+    ]
+  } catch (error) {
+    console.log(styleText("yellow", "\nWarning: Failed to load local Noto Sans JP fonts, falling back to Google Fonts"))
+  }
+
+  // フォールバック: Google Fontsから取得（元のコード）
   const headerWeights: FontWeight[] = (
     typeof headerFont === "string"
       ? defaultHeaderWeight
@@ -28,7 +55,6 @@ export async function getSatoriFonts(headerFont: FontSpecification, bodyFont: Fo
   const headerFontName = typeof headerFont === "string" ? headerFont : headerFont.name
   const bodyFontName = typeof bodyFont === "string" ? bodyFont : bodyFont.name
 
-  // Fetch fonts for all weights and convert to satori format in one go
   const headerFontPromises = headerWeights.map(async (weight) => {
     const data = await fetchTtf(headerFontName, weight)
     if (!data) return null
@@ -56,7 +82,6 @@ export async function getSatoriFonts(headerFont: FontSpecification, bodyFont: Fo
     Promise.all(bodyFontPromises),
   ])
 
-  // Filter out any failed fetches and combine header and body fonts
   const fonts: SatoriOptions["fonts"] = [
     ...headerFonts.filter((font): font is NonNullable<typeof font> => font !== null),
     ...bodyFonts.filter((font): font is NonNullable<typeof font> => font !== null),
@@ -64,7 +89,6 @@ export async function getSatoriFonts(headerFont: FontSpecification, bodyFont: Fo
 
   return fonts
 }
-
 /**
  * Get the `.ttf` file of a google font
  * @param fontName name of google font
