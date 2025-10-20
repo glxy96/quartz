@@ -1,3 +1,18 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+@font-face {
+  font-family: "Noto Sans JP";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/static/NotoSansJP-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Noto Sans JP";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/static/NotoSansJP-Bold.woff2") format("woff2");
+}

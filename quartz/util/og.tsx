@@ -5,6 +5,7 @@ import { QuartzPluginData } from "../plugins/vfile"
 import { JSXInternal } from "preact/src/jsx"
 import { FontSpecification, getFontSpecificationName, ThemeKey } from "./theme"
 import path from "path"
+import { QUARTZ, joinSegments } from "./path"
 import { QUARTZ } from "./path"
 import { formatDate, getDate } from "../components/Date"
 import readingTime from "reading-time"
@@ -13,6 +14,9 @@ import { styleText } from "util"
 
 const defaultHeaderWeight = [700]
 const defaultBodyWeight = [400]
+
+const notoSansJPRegularPath = joinSegments(QUARTZ, "static", "NotoSansJP-Regular.woff2")
+const notoSansJPBoldPath = joinSegments(QUARTZ, "static", "NotoSansJP-Bold.woff2")
 
 export async function getSatoriFonts(headerFont: FontSpecification, bodyFont: FontSpecification) {
   // Get all weights for header and body fonts
@@ -60,6 +64,18 @@ export async function getSatoriFonts(headerFont: FontSpecification, bodyFont: Fo
   const fonts: SatoriOptions["fonts"] = [
     ...headerFonts.filter((font): font is NonNullable<typeof font> => font !== null),
     ...bodyFonts.filter((font): font is NonNullable<typeof font> => font !== null),
+    {
+      name: "Noto Sans JP",
+      data: await fs.readFile(path.resolve(notoSansJPRegularPath)),
+      weight: 400,
+      style: "normal" as const,
+    },
+    {
+      name: "Noto Sans JP",
+      data: await fs.readFile(path.resolve(notoSansJPBoldPath)),
+      weight: 700,
+      style: "normal" as const,
+    },
   ]
 
   return fonts
