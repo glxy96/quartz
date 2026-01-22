@@ -6,6 +6,7 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
+    Component.SyncedAudioPlayer(),
     Component.RecentNotes({
       title: "Recent Notes",
       limit: 5,

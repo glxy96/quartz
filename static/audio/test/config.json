@@ -1,0 +1,18 @@
+{
+  "contentId": "test-player",
+  "title": "Test Multi-Track Player",
+  "tracks": [
+    {
+      "id": "track1",
+      "label": "Track 1",
+      "url": "/static/audio/test/track1.mp3",
+      "volume": 1.0
+    },
+    {
+      "id": "track2",
+      "label": "Track 2",
+      "url": "/static/audio/test/track2.mp3",
+      "volume": 0.8
+    }
+  ]
+}
