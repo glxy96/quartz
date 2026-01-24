@@ -30,7 +30,24 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
       const segments: (string | JSX.Element)[] = []
 
       if (fileData.dates) {
-        segments.push(<Date date={getDate(cfg, fileData)!} locale={cfg.locale} />)
+        const published = fileData.dates.published
+        const modified = fileData.dates.modified
+
+        // Show both published and modified dates if they exist and are different
+        if (published && modified && published.getTime() !== modified.getTime()) {
+          segments.push(
+            <span>
+              公開: <Date date={published} locale={cfg.locale} /> / 更新: <Date date={modified} locale={cfg.locale} />
+            </span>
+          )
+        } else if (published) {
+          // Show only published date if modified is the same or doesn't exist
+          segments.push(
+            <span>
+              公開: <Date date={published} locale={cfg.locale} />
+            </span>
+          )
+        }
       }
 
       // Display reading time if enabled
