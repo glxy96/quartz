@@ -1,0 +1,18 @@
+services:
+  quartz-deploy:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.deploy
+    container_name: quartz-deploy
+    volumes:
+      - /srv/dev-disk-by-uuid-faae0ba6-5257-46ef-a8d2-3d96c3540f6d/dataFolder/pkm:/pkm_host:ro
+    environment:
+      - CLOUDFLARE_PROJECT_NAME=glxy96-pkm-blog
+      - CLOUDFLARE_API_TOKEN_FILE=/run/secrets/cloudflare_api_token
+    secrets:
+      - cloudflare_api_token
+    restart: "no"
+
+secrets:
+  cloudflare_api_token:
+    file: ./secrets/cloudflare_api_token

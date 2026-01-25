@@ -1,0 +1,17 @@
+services:
+  quartz-deploy:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.deploy
+    container_name: quartz-deploy-local
+    volumes:
+      - ${PKM_PATH:-${HOME}/pkm}:/pkm_host:ro
+    ports:
+      - "8080:8080"
+    environment:
+      - CLOUDFLARE_PROJECT_NAME=glxy96-pkm-blog
+      - CLOUDFLARE_API_TOKEN=dummy_token_for_local
+      - SKIP_DEPLOY=true
+      - LOCAL_SERVE=true
+    restart: "no"
+    command: ["/bin/bash", "/usr/local/bin/deploy.sh"]

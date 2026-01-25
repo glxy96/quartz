@@ -9,3 +9,7 @@ tsconfig.tsbuildinfo
 private/
 .replit
 replit.nix
+
+# Deploy secrets and logs
+deploy/secrets/
+deploy/*.log

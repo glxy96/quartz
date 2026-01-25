@@ -1,0 +1,32 @@
+FROM node:22-slim
+
+# rsyncインストール
+RUN apt-get update && apt-get install -y rsync && rm -rf /var/lib/apt/lists/*
+
+# wranglerグローバルインストール
+RUN npm install -g wrangler
+
+WORKDIR /app
+
+# Quartzの依存関係をインストール（package.jsonをコピー）
+COPY package*.json ./
+RUN npm install
+
+# Quartzプロジェクト全体をコピー
+COPY quartz/ ./quartz/
+COPY quartz.config.ts quartz.layout.ts ./
+COPY index.d.ts globals.d.ts tsconfig.json ./
+
+# deploy.shを/usr/local/binにコピー（マウントされない場所）
+COPY deploy/deploy.sh /usr/local/bin/deploy.sh
+RUN chmod +x /usr/local/bin/deploy.sh
+
+# エントリーポイントスクリプト作成
+RUN echo '#!/bin/bash\n\
+if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then\n\
+  export CLOUDFLARE_API_TOKEN=$(cat ${CLOUDFLARE_API_TOKEN_FILE:-/run/secrets/cloudflare_api_token})\n\
+fi\n\
+exec "$@"' > /entrypoint.sh && chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/bin/bash", "/usr/local/bin/deploy.sh"]

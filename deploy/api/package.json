@@ -1,0 +1,12 @@
+{
+  "name": "quartz-deploy-api",
+  "version": "1.0.0",
+  "description": "API server for triggering Quartz deploy and environment updates",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

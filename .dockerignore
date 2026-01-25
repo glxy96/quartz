@@ -1,0 +1,30 @@
+# Git
+.git
+.gitattributes
+.gitignore
+.github
+
+# Node
+node_modules
+
+# Documentation (not needed for build)
+docs
+*.md
+!quartz/**/*.md
+
+# Deploy directory (except deploy.sh)
+deploy/docker-compose*.yml
+deploy/Dockerfile.deploy
+deploy/*.md
+deploy/secrets
+
+# Build artifacts
+public
+.quartz-cache
+
+# IDE
+.vscode
+.idea
+
+# Content (mounted at runtime)
+content

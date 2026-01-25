@@ -1,0 +1,16 @@
+[Unit]
+Description=Quartz Deploy API Server
+After=network.target docker.service
+
+[Service]
+Type=simple
+User=ginga
+WorkingDirectory=/srv/dev-disk-by-uuid-faae0ba6-5257-46ef-a8d2-3d96c3540f6d/docker/quartz/deploy/api
+Environment=API_PORT=3000
+Environment=DEPLOY_DIR=/srv/dev-disk-by-uuid-faae0ba6-5257-46ef-a8d2-3d96c3540f6d/docker/quartz/deploy
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
