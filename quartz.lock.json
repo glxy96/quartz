@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "plugins": {
+    "glxy96-content-meta": {
+      "source": "./components/glxy96-content-meta",
+      "resolved": "/Users/ginga/repos/quartz/components/glxy96-content-meta",
+      "commit": "local",
+      "installedAt": "2026-11-05T18:58:33.102Z"
+    },
+    "glxy96-footer": {
+      "source": "./components/glxy96-footer",
+      "resolved": "/Users/ginga/repos/quartz/components/glxy96-footer",
+      "commit": "local",
+      "installedAt": "2026-11-05T18:58:33.103Z"
+    },
+    "og-image": {
+      "source": "./plugins/og-image",
+      "resolved": "/Users/ginga/repos/quartz/plugins/og-image",
+      "commit": "local",
+      "installedAt": "2026-11-05T18:58:33.102Z"
+    }
+  }
+}

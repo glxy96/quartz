@@ -1,0 +1,56 @@
+{
+  "name": "og-image",
+  "version": "1.0.0",
+  "description": "glxy96 vendored copy of @quartz-community/og-image with local Noto Sans JP fonts for Japanese OGP (port of v4 CustomOgImages + util/og.tsx)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "quartz": {
+    "name": "og-image",
+    "displayName": "OG Image (glxy96: Noto Sans JP)",
+    "category": "emitter",
+    "version": "1.0.0",
+    "quartzVersion": ">=5.0.0",
+    "requiresInstall": false,
+    "dependencies": [],
+    "defaultOrder": 50,
+    "defaultEnabled": true,
+    "defaultOptions": {
+      "colorScheme": "lightMode",
+      "width": 1200,
+      "height": 630,
+      "excludeRoot": false,
+      "defaultTitle": "Untitled",
+      "defaultDescription": "No description provided"
+    },
+    "optionSchema": {
+      "colorScheme": {
+        "type": "enum",
+        "values": [
+          "lightMode",
+          "darkMode"
+        ]
+      },
+      "width": {
+        "type": "number"
+      },
+      "height": {
+        "type": "number"
+      },
+      "excludeRoot": {
+        "type": "boolean"
+      },
+      "defaultTitle": {
+        "type": "string"
+      },
+      "defaultDescription": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "glxy96-content-meta",
+  "version": "1.0.0",
+  "description": "glxy96 custom content meta (port of v4 ContentMeta): publish date + updated date + reading time",
+  "type": "module",
+  "quartz": {
+    "name": "glxy96-content-meta",
+    "displayName": "glxy96 Content Meta",
+    "category": "component",
+    "version": "1.0.0",
+    "quartzVersion": ">=5.0.0",
+    "defaultOptions": {
+      "showReadingTime": true,
+      "showComma": true
+    },
+    "optionSchema": {
+      "showReadingTime": {
+        "type": "boolean"
+      },
+      "showComma": {
+        "type": "boolean"
+      }
+    },
+    "components": {
+      "ContentMeta": {
+        "displayName": "glxy96 Content Meta",
+        "defaultPosition": "beforeBody",
+        "defaultPriority": 20
+      }
+    }
+  }
+}

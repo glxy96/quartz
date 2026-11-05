@@ -1,0 +1,23 @@
+{
+  "name": "glxy96-footer",
+  "version": "1.0.0",
+  "description": "glxy96 custom footer (port of v4 Footer): © year baseUrl | Built with Quartz v{version}, no links",
+  "type": "module",
+  "quartz": {
+    "name": "glxy96-footer",
+    "displayName": "glxy96 Footer",
+    "category": "component",
+    "version": "1.0.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOptions": {},
+    "optionSchema": {},
+    "components": {
+      "Footer": {
+        "displayName": "glxy96 Footer",
+        "defaultPosition": "footer",
+        "defaultPriority": 50
+      }
+    }
+  }
+}

@@ -1,0 +1,320 @@
+# yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
+# Quartz v5 config — glxy96.com
+# v4 (quartz.config.ts / quartz.layout.ts) から移植。詳細: glxy96-pkm-blog-site-project/phases/01-v5-parallel-build.md
+configuration:
+  pageTitle: glxy96.com
+  pageTitleSuffix: ""
+  enableSPA: true
+  enablePopovers: true
+  analytics:
+    provider: plausible
+  locale: ja-JP
+  baseUrl: glxy96.com
+  ignorePatterns:
+    - private
+    - templates
+    - .obsidian
+  theme:
+    fontOrigin: googleFonts
+    cdnCaching: true
+    typography:
+      header: Schibsted Grotesk
+      body: Source Sans Pro
+      code: IBM Plex Mono
+    colors:
+      lightMode:
+        light: "#faf8f8"
+        lightgray: "#e5e5e5"
+        gray: "#b8b8b8"
+        darkgray: "#4e4e4e"
+        dark: "#2b2b2b"
+        secondary: "#284b63"
+        tertiary: "#84a59d"
+        highlight: rgba(143, 159, 169, 0.15)
+        textHighlight: "#fff23688"
+      darkMode:
+        light: "#161618"
+        lightgray: "#393639"
+        gray: "#646464"
+        darkgray: "#d4d4d4"
+        dark: "#ebebec"
+        secondary: "#7b97aa"
+        tertiary: "#84a59d"
+        highlight: rgba(143, 159, 169, 0.15)
+        textHighlight: "#b3aa0288"
+plugins:
+  # --- transformers ---
+  # v4: CreatedModifiedDate({ priority: ["frontmatter", "filesystem"] }) + defaultDateType: "published"
+  - source: "@quartz-community/created-modified-date"
+    enabled: true
+    options:
+      defaultDateType: published
+      priority:
+        - frontmatter
+        - filesystem
+    order: 10
+  - source: "@quartz-community/syntax-highlighting"
+    enabled: true
+    options:
+      theme:
+        light: github-light
+        dark: github-dark
+      keepBackground: false
+    order: 20
+  # v4: ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }) — 残りはv4既定値と同一
+  # (enableCheckbox: false はv4既定値。テンプレートの true とは異なる)
+  - source: "@quartz-community/obsidian-flavored-markdown"
+    enabled: true
+    options:
+      comments: true
+      highlight: true
+      wikilinks: true
+      callouts: true
+      mermaid: true
+      parseTags: true
+      parseArrows: true
+      parseBlockReferences: true
+      enableInHtmlEmbed: false
+      enableYouTubeEmbed: true
+      enableVideoEmbed: true
+      enableCheckbox: false
+    order: 30
+  - source: "@quartz-community/github-flavored-markdown"
+    enabled: true
+    order: 40
+  # v4: TableOfContents() (contentページの右sidebarはDesktopOnly表示)
+  - source: "@quartz-community/table-of-contents"
+    enabled: true
+    order: 50
+    layout:
+      position: right
+      priority: 30
+      display: desktop-only
+  # v4: CrawlLinks({ markdownLinkResolution: "shortest" })
+  - source: "@quartz-community/crawl-links"
+    enabled: true
+    options:
+      markdownLinkResolution: shortest
+    order: 60
+  - source: "@quartz-community/description"
+    enabled: true
+    order: 70
+  - source: "@quartz-community/latex"
+    enabled: true
+    options:
+      renderEngine: katex
+    order: 80
+  - source: "@quartz-community/citations"
+    enabled: false
+    order: 85
+  # v4: HardLineBreaks()
+  - source: "@quartz-community/hard-line-breaks"
+    enabled: true
+    order: 90
+  - source: "@quartz-community/ox-hugo"
+    enabled: false
+    order: 91
+  - source: "@quartz-community/roam"
+    enabled: false
+    order: 92
+  - source: "@quartz-community/quartz-fonts"
+    enabled: true
+  - source: "@quartz-themes/core"
+    enabled: true
+    options:
+      theme: default
+      mode: both
+  # v4: filters: [RemoveDrafts()]
+  - source: "@quartz-community/remove-draft"
+    enabled: true
+  - source: "@quartz-community/explicit-publish"
+    enabled: false
+  - source: "@quartz-community/unlisted-pages"
+    enabled: true
+    options: {}
+    order: 45
+  - source: "@quartz-community/encrypted-pages"
+    enabled: true
+    options:
+      iterations: 600000
+      passwordField: password
+      unlistWhenEncrypted: false
+      outputPath: static/encryptedContentIndex.json
+  - source: "@quartz-community/stacked-pages"
+    enabled: false
+    layout:
+      position: afterBody
+      priority: 50
+      display: all
+  # v4: AliasRedirects() — v5は既定でenableCaseRedirects: true (大文字URL→小文字リダイレクト)
+  - source: "@quartz-community/alias-redirects"
+    enabled: true
+  # --- emitters ---
+  # v4: ContentIndex({ enableSiteMap: true, enableRSS: true })
+  - source: "@quartz-community/content-index"
+    enabled: true
+    options:
+      enableSiteMap: true
+      enableRSS: true
+  - source: "@quartz-community/content-page"
+    enabled: true
+  - source: "@quartz-community/folder-page"
+    enabled: true
+  - source: "@quartz-community/tag-page"
+    enabled: true
+  - source: "@quartz-community/canvas-page"
+    enabled: true
+  - source: "@quartz-community/bases-page"
+    enabled: true
+    options: {}
+    order: 50
+  # v4: Favicon() — quartz/static/icon.png (カスタムfavicon)
+  - source: "@quartz-community/favicon"
+    enabled: true
+  # v4: CustomOgImages() + Noto Sans JPローカルフォント (util/og.tsx 移植)
+  # npm版og-imageは無効化し、ローカルvendored版 (./plugins/og-image) を使用
+  - source: "@quartz-community/og-image"
+    enabled: false
+  - source: "./plugins/og-image"
+    enabled: true
+  - source: "@quartz-community/cname"
+    enabled: true
+  # --- components ---
+  - source: "@quartz-community/explorer"
+    enabled: true
+    layout:
+      position: left
+      priority: 50
+  - source: "@quartz-community/graph"
+    enabled: true
+    layout:
+      position: right
+      priority: 10
+  - source: "@quartz-community/search"
+    enabled: true
+    layout:
+      position: left
+      priority: 20
+      group: toolbar
+      groupOptions:
+        grow: true
+  - source: "@quartz-community/backlinks"
+    enabled: true
+    layout:
+      position: right
+      priority: 50
+  - source: "@quartz-community/article-title"
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 10
+  # v4: 独自ContentMeta (公開日+更新日) — npm版content-metaは無効化、ローカル版を使用
+  - source: "@quartz-community/content-meta"
+    enabled: false
+  - source: "./components/glxy96-content-meta"
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 20
+  # v4: TagList() (contentページのみ。リストページには非表示)
+  - source: "@quartz-community/tag-list"
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 30
+  - source: "@quartz-community/page-title"
+    enabled: true
+    layout:
+      position: left
+      priority: 10
+  - source: "@quartz-community/darkmode"
+    enabled: true
+    layout:
+      position: left
+      priority: 30
+      group: toolbar
+  - source: "@quartz-community/reader-mode"
+    enabled: true
+    layout:
+      position: left
+      priority: 35
+      group: toolbar
+  # v4: Breadcrumbs (indexページ以外)
+  - source: "@quartz-community/breadcrumbs"
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 5
+      condition: not-index
+  - source: "@quartz-community/comments"
+    enabled: false
+    options:
+      provider: giscus
+      options: {}
+    layout:
+      position: afterBody
+      priority: 10
+  # v4: 独自Footer (シンプル表示) — npm版footerは無効化、ローカル版を使用
+  - source: "@quartz-community/footer"
+    enabled: false
+  - source: "./components/glxy96-footer"
+    enabled: true
+    layout:
+      position: footer
+      priority: 50
+  # v4: RecentNotes({ title: "Recent Notes", limit: 5, showTags: true })
+  - source: "@quartz-community/recent-notes"
+    enabled: true
+    options:
+      title: Recent Notes
+      limit: 5
+      showTags: true
+    layout:
+      position: afterBody
+      priority: 50
+  - source: "@quartz-community/spacer"
+    enabled: true
+    options: {}
+    order: 25
+    layout:
+      position: left
+      priority: 25
+      display: mobile-only
+  # v5のフロントマター解析はここで行う（v4のFrontMatter相当）。
+  # v4と同等にpropertiesパネルを表示しない（hidePropertiesView: true）
+  - source: "@quartz-community/note-properties"
+    enabled: true
+    options:
+      hidePropertiesView: true
+  # v4に相当するプラグインが存在し、コンテンツにもexcalidrawファイルがないため無効化
+  - source: "@quartz-community/obsidian-plugin-excalidraw"
+    enabled: false
+layout:
+  groups:
+    # v4: Flex の既定 gap 1rem
+    toolbar:
+      priority: 35
+      direction: row
+      gap: 1rem
+  byPageType:
+    "404":
+      positions:
+        beforeBody: []
+        left: []
+        right: []
+    content: {}
+    # v4: リストページ (folder/tag) は TagList・ReaderMode なし、右sidebarなし
+    folder:
+      exclude:
+        - reader-mode
+        - tag-list
+      positions:
+        right: []
+    tag:
+      exclude:
+        - reader-mode
+        - tag-list
+      positions:
+        right: []
+    canvas: {}
+    bases: {}
