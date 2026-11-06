@@ -44,13 +44,14 @@ configuration:
         textHighlight: "#b3aa0288"
 plugins:
   # --- transformers ---
-  # v4: CreatedModifiedDate({ priority: ["frontmatter", "filesystem"] }) + defaultDateType: "published"
+  # v4: CreatedModifiedDate({ priority: ["frontmatter", "git", "filesystem"] }) + defaultDateType: "modified"
   - source: "@quartz-community/created-modified-date"
     enabled: true
     options:
-      defaultDateType: published
+      defaultDateType: modified
       priority:
         - frontmatter
+        - git
         - filesystem
     order: 10
   - source: "@quartz-community/syntax-highlighting"
